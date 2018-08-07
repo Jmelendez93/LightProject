@@ -18,7 +18,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname+'/index.html'));
   
 });
-
+/*var options = {
+  args: ['--endpoint', 'a2zx7yb4b8zjqn.iot.us-west-2.amazonaws.com', '--rootCA ', 'root-ca-cert.pem', '--cert', '422106a8b4.cert.pem', '--key',
+  '422106a8b4.private.key', '--thingName', 'TrafficLight_Pi', '--clientId', 'Switch_Webhost']
+};*/
 app.post('/thank', urlencodedParser, function (req, res){
   var logger = fs.createWriteStream('data.txt')
   logger.write(req.body.name + "\n");
@@ -30,7 +33,7 @@ app.post('/thank', urlencodedParser, function (req, res){
   reply += "Confirmation E-mail will be sent to " + req.body.email + "</p>"; 
   reply += "Light will be set to " + req.body.lightstatus + "</p>";
   res.send(reply);
-  PythonShell.run('dataTest.py', function (err, results) {
+  PythonShell.run('dataTest.py',/*'lightController.py', options,*/ function (err, results) {
     if (err) throw err;
     // results is an array consisting of messages collected during execution
     console.log('results: %j', results);
